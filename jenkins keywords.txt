@@ -1,0 +1,88 @@
+*****************************************************************************************************
+In Declarative Jenkins Pipelines, you use specific keywords to define various aspects of your pipeline, 
+such as stages, steps, and configuration options. Here are some of the most frequently used keywords in 
+Declarative Pipelines:
+*******************************************************************************************************
+
+
+pipeline: This is the top-level keyword that defines the start of your pipeline configuration.
+
+pipeline {
+            // Pipeline configuration goes here
+        }
+
+agent: Specifies where and how the pipeline should be executed. It defines the node or container to run the pipeline on.
+
+        agent {
+            label 'my-agent' // Or other agent options
+        }
+
+
+stages: Defines a block where you can specify the stages of your pipeline.
+
+        stages {
+            // Define stages here
+        }
+
+
+stage: Inside the stages block, you define individual stages of your pipeline. Each stage can have a name and steps.
+
+        stage('Build') {
+            // Steps for the Build stage
+        }
+
+
+
+steps: Within each stage, you specify the actual commands or steps to be executed. This is where you define your build, test, and deployment tasks.
+
+        stage('Build') {
+            steps {
+                // Build commands go here
+            }
+        }
+
+
+script: Allows you to execute arbitrary Groovy code within a stage. Useful for more advanced or custom tasks.
+
+stage('Custom Step') {
+    steps {
+        script {
+            // Custom Groovy code here
+        }
+    }
+}
+
+environment: Defines environment variables that should be available within the context of the pipeline.
+
+        environment {
+            PATH = "/usr/local/bin:$PATH"
+        }
+
+
+when: Specifies conditions under which a stage should be executed. You can use this to control the flow of your pipeline based on certain criteria.
+
+        stage('Deploy') {
+            when {
+                branch 'main'
+            }
+            steps {
+                // Deployment steps
+            }
+        }
+
+
+post: Defines post-build actions, such as notifications or cleanup, to be executed after the stages have completed.
+
+    post {
+        success {
+            mail to: 'developer@example.com', subject: 'Build Success'
+        }
+        failure {
+            mail to: 'admin@example.com', subject: 'Build Failure'
+        }
+    }
+
+**************
+
+
+
